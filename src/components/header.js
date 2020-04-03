@@ -4,11 +4,23 @@ import { Link } from 'gatsby'
 const Header = () => {
   return (
     <header>
-      <h1>Great Gatsby Bootcamp</h1>
-      <Link to='/'>Home</Link>
-      <Link to='/about'>About</Link>
-      <Link to='/contact'>Contact Us</Link>
-      <Link to='/blog'>Blog</Link>
+      <h1>Nathen Bowes</h1>
+      <nav>
+        <ul>
+          <li>
+            <Link to='/'>Home</Link>
+          </li>
+          <li>
+            <Link to='/about'>About</Link>
+          </li>
+          <li>
+            <Link to='/contact'>Contact Us</Link>
+          </li>
+          <li>
+            <Link to='/blog'>Blog</Link>
+          </li>
+        </ul>
+      </nav>      
     </header>
   )
 }
