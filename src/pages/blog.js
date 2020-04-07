@@ -21,14 +21,28 @@ const BlogPage = () => {
           }
         }
       }
+      allContentfulBlogPost(sort:{
+        fields: publishedDate,
+        order: DESC
+      }){
+        edges {
+          node {
+            id
+            title
+            slug
+            publishedDate(formatString: "ddd MMMM Do, YYYY")
+          }
+        }
+      }
     }
   `)
 
   const posts = data.allMarkdownRemark.edges
+  const contentfulPosts = data.allContentfulBlogPost.edges
 
   return (
     <Layout>
-      <h1>Blog</h1>
+      <h1>Markdown Blog</h1>
       <ol className={blogStyles.posts}>
         {
           posts.map(post => {
@@ -41,6 +55,25 @@ const BlogPage = () => {
                     <h2>{post.node.frontmatter.title}</h2>
                     <p>{post.node.frontmatter.date}</p>
                   </Link>
+              </li>
+            )
+          })
+        }
+      </ol>
+      <h1>Contentful Blog</h1>
+      <ol className={blogStyles.posts}>
+        {
+          contentfulPosts.map(cPost => {
+            return (
+              <li
+                key={cPost.node.id}
+                className={blogStyles.post}
+              >
+                <Link to={`/blog/${cPost.node.slug}`}>
+                  <h2>{cPost.node.title}</h2>
+                  <p>{cPost.node.publishedDate}</p>
+                </Link>
+
               </li>
             )
           })
