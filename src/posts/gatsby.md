@@ -4,6 +4,7 @@ date: "2020-04-06"
 ---
 
 I just started doing a new bootcamp!
+![Nathen in Tofino](./images/tofino.png)
 
 ## Topics I'm going to complete
 
