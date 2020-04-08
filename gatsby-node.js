@@ -28,8 +28,16 @@ module.exports.createPages = async ({graphql, actions}) => {
           }
         }
       }
+      allContentfulBlogPost {
+        edges {
+          node {
+            slug
+          }
+        }
+      }
     }
   `)
+
 
   response.data.allMarkdownRemark.edges.forEach(edge => {
     createPage({
@@ -41,4 +49,13 @@ module.exports.createPages = async ({graphql, actions}) => {
     })
   })
 
+  response.data.allContentfulBlogPost.edges.forEach(cPost => {
+    createPage({
+      component: blogTemplate,
+      path: `/blog/${cPost.node.slug}`,
+      context: {
+        slug: cPost.node.slug
+      }
+    })
+  })
 }

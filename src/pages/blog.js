@@ -16,7 +16,7 @@ const BlogPage = () => {
             }
             frontmatter {
               title
-              date
+              date(formatString: "ddd MMMM Do, YYYY")
             }
           }
         }
