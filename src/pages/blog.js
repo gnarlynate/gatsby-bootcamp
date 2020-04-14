@@ -1,87 +1,17 @@
 import React from 'react'
-import { graphql, useStaticQuery, Link } from 'gatsby'
 import Layout from '../components/layout'
 import Head from '../components/head'
-
-
-import blogStyles from './blog.module.scss'
+import MarkdownBlog from './markdownBlog'
+import ContentfulBlog  from './contentfulBlog'
 
 const BlogPage = () => {
-  const data = useStaticQuery(graphql`
-    query{
-      allMarkdownRemark{
-        edges {
-          node {
-            id
-            fields {
-              slug
-            }
-            frontmatter {
-              title
-              date(formatString: "ddd MMMM Do, YYYY")
-            }
-          }
-        }
-      }
-      allContentfulBlogPost(sort:{
-        fields: publishedDate,
-        order: DESC
-      }){
-        edges {
-          node {
-            id
-            title
-            slug
-            publishedDate(formatString: "ddd MMMM Do, YYYY")
-          }
-        }
-      }
-    }
-  `)
-
-  const posts = data.allMarkdownRemark.edges
-  const contentfulPosts = data.allContentfulBlogPost.edges
-
   return (
     <Layout>
       <Head title='Blog'/>
       <h1>Markdown Blog</h1>
-      <ol className={blogStyles.posts}>
-        {
-          posts.map(post => {
-            return (
-              <li 
-                key={post.node.id}
-                className={blogStyles.post}
-              >
-                  <Link to={`/blog/${post.node.fields.slug}`}>
-                    <h2>{post.node.frontmatter.title}</h2>
-                    <p>{post.node.frontmatter.date}</p>
-                  </Link>
-              </li>
-            )
-          })
-        }
-      </ol>
+        <MarkdownBlog />
       <h1>Contentful Blog</h1>
-      <ol className={blogStyles.posts}>
-        {
-          contentfulPosts.map(cPost => {
-            return (
-              <li
-                key={cPost.node.id}
-                className={blogStyles.post}
-              >
-                <Link to={`/blog/${cPost.node.slug}`}>
-                  <h2>{cPost.node.title}</h2>
-                  <p>{cPost.node.publishedDate}</p>
-                </Link>
-
-              </li>
-            )
-          })
-        }
-      </ol>
+        <ContentfulBlog />
     </Layout>
   )
 }
