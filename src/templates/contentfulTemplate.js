@@ -7,13 +7,6 @@ import Head from '../components/head'
 
 export const query = graphql`
   query($slug: String!){
-    markdownRemark(fields: {slug: { eq: $slug }} ){
-      frontmatter{
-        title
-        date(formatString:"ddd MMMM Do, YYYY")
-      }
-      html
-    }
     contentfulBlogPost(slug: { eq: $slug}) {
       title
       publishedDate(formatString:"ddd MMMM Do, YYYY")
@@ -34,17 +27,6 @@ const Blog = (props) => {
       }
     }
   }
-
-  if (props.data.markdownRemark){
-    return ( 
-      <Layout>
-        <Head title={props.data.markdownRemark.frontmatter.title}/>
-        <h1>{props.data.markdownRemark.frontmatter.title}</h1>
-        <p>{props.data.markdownRemark.frontmatter.date}</p>
-        <div dangerouslySetInnerHTML={{__html: props.data.markdownRemark.html}}></div>
-      </Layout>
-    )
-  } else {
     return ( 
       <Layout>
         <Head title={props.data.contentfulBlogPost.title}/>
@@ -53,8 +35,6 @@ const Blog = (props) => {
         {documentToReactComponents(props.data.contentfulBlogPost.body.json, options)}
       </Layout>
     )
-  }
-  
 }
 
 export default Blog
